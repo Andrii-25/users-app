@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const userService = require("../service/user.service");
+const { validations, validate } = require("../utils/user.validations");
 
 router.post("/login", login);
-router.post("/register", register);
+router.post("/register", validate(validations), register);
 router.get("/", getAll);
 router.get("/current", getCurrent);
 router.get("/:id", getById);
-router.put("/:id", update);
+router.put("/:id", validate(validations), update);
 router.delete("/:id", deleteUser);
 
 module.exports = router;
