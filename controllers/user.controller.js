@@ -26,6 +26,9 @@ async function login(req, res, next) {
 async function register(req, res, next) {
   try {
     await userService.create(req.body);
+    res.json({
+      message: `Successfully registered user '${req.body.username}'!`,
+    });
   } catch (e) {
     next(e);
   }
@@ -33,7 +36,8 @@ async function register(req, res, next) {
 
 async function getAll(req, res, next) {
   try {
-    await userService.getAll();
+    const users = await userService.getAll();
+    res.json(users);
   } catch (e) {
     next(e);
   }
@@ -60,7 +64,7 @@ async function getById(req, res, next) {
 async function update(req, res, next) {
   try {
     await userService.update(req.params.id, req.body);
-    res.json({});
+    res.json({ message: "Successfully updated!" });
   } catch (e) {
     next(e);
   }
@@ -68,8 +72,8 @@ async function update(req, res, next) {
 
 async function deleteUser(req, res, next) {
   try {
-    await userService.delete(req.params.id);
-    res.json({});
+    await userService.deleteUser(req.params.id);
+    res.json({ message: "Successfully deleted!" });
   } catch (e) {
     next(e);
   }
