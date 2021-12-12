@@ -14,6 +14,7 @@ module.exports = {
 
 async function login({ username, password }) {
   const user = await User.findOne({ username });
+
   if (user && bcrypt.compareSync(password, user.hash)) {
     const token = jwt.sign({ sub: user.id }, process.env.SECRET, {
       expiresIn: "7d",
@@ -35,7 +36,7 @@ async function getById(id) {
 
 async function create(userParam) {
   if (await User.findOne({ username: userParam.username })) {
-    throw "Username '" + userParam.username + "' is already taken";
+    throw "Username '" + userParam.username + "' is already taken!";
   }
 
   const user = new User(userParam);
@@ -50,12 +51,13 @@ async function create(userParam) {
 async function update(id, userParam) {
   const user = await User.findById(id);
 
-  if (!user) throw "User not found";
+  if (!user) throw "User not found!";
+
   if (
     user.username !== userParam.username &&
     (await User.findOne({ username: userParam.username }))
   ) {
-    throw 'Username "' + userParam.username + '" is already taken';
+    throw "Username '" + userParam.username + "' is already taken!";
   }
 
   if (userParam.password) {
