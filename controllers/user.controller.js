@@ -2,9 +2,18 @@ const express = require("express");
 const router = express.Router();
 const userService = require("../service/user.service");
 const { validations, validate } = require("../utils/user.validations");
+const {
+  passwordValidations,
+  validatePassword,
+} = require("../utils/password.validations");
 
 router.post("/login", login);
-router.post("/register", validate(validations), register);
+router.post(
+  "/register",
+  validate(validations),
+  validatePassword(passwordValidations),
+  register
+);
 router.get("/", getAll);
 router.get("/current", getCurrent);
 router.get("/:id", getById);

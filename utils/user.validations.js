@@ -25,12 +25,6 @@ module.exports = {
       .withMessage("Lastname field must be a String")
       .isLength({ max: 30 })
       .withMessage("Max length should be 30 characters"),
-
-    check("password")
-      .notEmpty()
-      .withMessage("Password field is required")
-      .isLength({ min: 8 })
-      .withMessage("Minimum length should be 8 characters"),
   ],
 
   validate: function (validations) {
