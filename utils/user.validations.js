@@ -7,20 +7,24 @@ module.exports = {
       .withMessage("Username field is required")
       .isString()
       .withMessage("Username field must be a String")
-      .isLength({ min: 3 })
-      .withMessage("Minimum length should be 3 characters"),
+      .isLength({ min: 3, max: 30 })
+      .withMessage("Minimum length should be 3 characters, max 30 characters"),
 
     check("firstName")
       .notEmpty()
       .withMessage("Firstname field is required")
       .isString()
-      .withMessage("Firstname field must be a String"),
+      .withMessage("Firstname field must be a String")
+      .isLength({ max: 30 })
+      .withMessage("Max length should be 30 characters"),
 
     check("lastName")
       .notEmpty()
       .withMessage("Lastname field is required")
       .isString()
-      .withMessage("Lastname field must be a String"),
+      .withMessage("Lastname field must be a String")
+      .isLength({ max: 30 })
+      .withMessage("Max length should be 30 characters"),
 
     check("password")
       .notEmpty()
